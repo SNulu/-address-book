@@ -99,6 +99,13 @@ var addressBook = new AddressBook();
 
 function displayContactDetails(addressBookToDisplay) {
   var contactsList = $("ul#contacts");
+  var emailAddressList = $("ul#Email-Address");
+  var htmlForEmailInfo = "";
+  addressBookToDisplay.contactAddresses.forEach(function(contactAddress){
+  htmlForContactInfo += "<li id=" + contact.id + ">" + contact.firstName + " " + contact.lastName + "</li>";
+    });
+
+  }
   var htmlForContactInfo = "";
   addressBookToDisplay.contacts.forEach(function(contact) {
     htmlForContactInfo += "<li id=" + contact.id + ">" + contact.firstName + " " + contact.lastName + "</li>";
@@ -157,7 +164,9 @@ $(document).ready(function() {
     $("input#new-other-email").val("");
     $("input#new-address").val("");
     var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedEmail, inputtedAddress);
+    var newContactAdresses = new contactAddresses(inputtedWorkEmail, inputtedPersonalEmail, inputtedOtherEmail)
     addressBook.addContact(newContact);
+    addressBook.addEmail(newContactAdresses);
     displayContactDetails(addressBook);
   });
 });

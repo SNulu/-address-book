@@ -31,11 +31,35 @@ AddressBook.prototype.findContact = function(id) {
   return false;
 }
 
+
+AddressBook.prototype.findcontactAddress = function(id) {
+  for (var i=0; i< this.contactAddresses.length; i++) {
+    if (this.contactAddresses[i]) {
+      if (this.contactAddresses[i].id == id) {
+        return this.contactAddresses[i];
+      }
+    }
+  };
+  return false;
+}
+
 AddressBook.prototype.deleteContact = function(id) {
   for (var i=0; i< this.contacts.length; i++) {
     if (this.contacts[i]) {
       if (this.contacts[i].id == id) {
         delete this.contacts[i];
+        return true;
+      }
+    }
+  };
+  return false;
+}
+
+AddressBook.prototype.deletecontactAddress = function(id) {
+  for (var i=0; i< this.contactAddresses.length; i++) {
+    if (this.contactAddresses[i]) {
+      if (this.contactAddresses[i].id == id) {
+        delete this.contactAddresses[i];
         return true;
       }
     }
@@ -78,6 +102,7 @@ function displayContactDetails(addressBookToDisplay) {
   var htmlForContactInfo = "";
   addressBookToDisplay.contacts.forEach(function(contact) {
     htmlForContactInfo += "<li id=" + contact.id + ">" + contact.firstName + " " + contact.lastName + "</li>";
+
   });
   contactsList.html(htmlForContactInfo);
 };
@@ -89,8 +114,12 @@ function showContact(contactId) {
   $(".first-name").html(contact.firstName);
   $(".last-name").html(contact.lastName);
   $(".phone-number").html(contact.phoneNumber);
-  $(".email").html(contact.email);
   $(".address").html(contact.address);
+  $(".email").html(contact.email);
+  $(".personal-email").html(contactAddresses.personalEmail);
+  $(".work-email").html(contactAddresses.workEmail);
+  $(".other-email").html(contactAddresses.otherEmail);
+
   var buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" +  + contact.id + ">Delete</button>");
@@ -115,11 +144,17 @@ $(document).ready(function() {
     var inputtedLastName = $("input#new-last-name").val();
     var inputtedPhoneNumber = $("input#new-phone-number").val();
     var inputtedEmail = $("input#new-email").val();
+    var inputtedWorkEmail = $("input#new-work-emai").val("");
+    var inputtedPersonalEmail = $("input#new-personal-email").val("");
+    var inputtedOtherEmail = $("input#new-other-email").val("");
     var inputtedAddress = $("input#new-address").val();
     $("input#new-first-name").val("");
     $("input#new-last-name").val("");
     $("input#new-phone-number").val("");
     $("input#new-email").val("");
+    $("input#new-work-emai").val("");
+    $("input#new-personal-email").val("");
+    $("input#new-other-email").val("");
     $("input#new-address").val("");
     var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedEmail, inputtedAddress);
     addressBook.addContact(newContact);

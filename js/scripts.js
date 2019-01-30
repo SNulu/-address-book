@@ -124,6 +124,12 @@ function showContact(contactId) {
     $(".other-email span").html(contact.emails.otherEmail);
   }
 
+  if (contact.emails.personalEmail === ""){
+     $(".personal-email").remove();
+    } else {
+      $(".personal-email span").html(contact.emails.personalEmail);
+  }
+
   var buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" + + contact.id + ">Delete</button>");
@@ -145,13 +151,13 @@ $(document).ready(function () {
   $("form#new-contact").submit(function (event) {
     event.preventDefault();
 
-    var inputFields = [ "new-first-name", 
-                        "new-last-name", 
-                        "new-phone-number", 
-                        "new-address", 
-                        "new-email", 
-                        "new-work-email", 
-                        "new-personal-email", 
+    var inputFields = [ "new-first-name",
+                        "new-last-name",
+                        "new-phone-number",
+                        "new-address",
+                        "new-email",
+                        "new-work-email",
+                        "new-personal-email",
                         "new-other-email",]
     var incomingVars = {}
 
@@ -161,13 +167,13 @@ $(document).ready(function () {
       incomingVars[inputField] = fieldValue;
     });
 
-    var newContact = new Contact(incomingVars["new-first-name"], 
-                                 incomingVars["new-last-name"], 
-                                 incomingVars["new-phone-number"], 
-                                 incomingVars["new-email"], 
+    var newContact = new Contact(incomingVars["new-first-name"],
+                                 incomingVars["new-last-name"],
+                                 incomingVars["new-phone-number"],
+                                 incomingVars["new-email"],
                                  incomingVars["new-address"]);
-    var newContactAdresses = new contactAddresses(incomingVars["new-work-email"], 
-                                                  incomingVars["new-personal-email"], 
+    var newContactAdresses = new contactAddresses(incomingVars["new-work-email"],
+                                                  incomingVars["new-personal-email"],
                                                   incomingVars["new-other-email"])
     newContact.emails = newContactAdresses
     addressBook.addContact(newContact);

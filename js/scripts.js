@@ -141,25 +141,25 @@ $(document).ready(function () {
   attachContactListeners();
   $("form#new-contact").submit(function (event) {
     event.preventDefault();
-    var inputtedFirstName = $("input#new-first-name").val();
-    var inputtedLastName = $("input#new-last-name").val();
-    var inputtedPhoneNumber = $("input#new-phone-number").val();
-    var inputtedAddress = $("input#new-address").val();
-    var inputtedEmail = $("input#new-email").val();
-    var inputtedWorkEmail = $("input#new-work-email").val();
-    var inputtedPersonalEmail = $("input#new-personal-email").val();
-    var inputtedOtherEmail = $("input#new-other-email").val();
 
-    $("input#new-first-name").val();
-    $("input#new-last-name").val();
-    $("input#new-phone-number").val();
-    $("input#new-email").val();
-    $("input#new-work-email").val();
-    $("input#new-personal-email").val();
-    $("input#new-other-email").val();
-    $("input#new-address").val();
-    var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedEmail, inputtedAddress);
-    var newContactAdresses = new contactAddresses(inputtedWorkEmail, inputtedPersonalEmail, inputtedOtherEmail)
+    var inputFields = [ "new-first-name", 
+                        "new-last-name", 
+                        "new-phone-number", 
+                        "new-address", 
+                        "new-email", 
+                        "new-work-email", 
+                        "new-personal-email", 
+                        "new-other-email",]
+    var incomingVars = []
+
+    inputFields.forEach(function(inputField){
+      var fieldValue = $("input#" + inputField).val();
+      $("input#" + inputField).val();
+      incomingVars.push(fieldValue);
+    });
+
+    var newContact = new Contact(incomingVars[0], incomingVars[1], incomingVars[2], incomingVars[4], incomingVars[3]);
+    var newContactAdresses = new contactAddresses(incomingVars[5], incomingVars[6], incomingVars[7])
     newContact.emails = newContactAdresses
     addressBook.addContact(newContact);
     addressBook.addEmail(newContactAdresses);

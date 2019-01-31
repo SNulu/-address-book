@@ -130,6 +130,13 @@ function showContact(contactId) {
       $(".personal-email span").html(contact.emails.personalEmail);
   }
 
+
+    if (contact.emails.personalEmail === ""){
+       $(".work-email").remove();
+      } else {
+        $(".work-email span").html(contact.emails.personalEmail);
+    }
+
   var buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" + + contact.id + ">Delete</button>");
